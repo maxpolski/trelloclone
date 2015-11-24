@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+    />
+    <!-- <link rel="stylesheet" href="css/main-style.css" /> -->
+    <link rel="stylesheet" href="/css/login-page.css" />
+  </head>
+  <body>
+    <form class="data-form" action="/registration" method="post">
+      <p>
+        Login:<br />
+        <input type="text" id="login" name="login" value="" />
+      </p>
+      <p>
+        Password:<br />
+        <input type="password" id="password" name="password" value=""/> <br />
+        Confirm password:<br />
+        <input type="password" id="rePassword" name="rePassword" value="" />
+      </p>
+      <button type="submit" class="btn" id="subm" disabled="true">Register</button>
+      <a href="/login" class="btn">Log in</a>
+    </form>
+    <script type="text/javascript">
+      var login      = document.getElementById("login");
+      var password   = document.getElementById("password");
+      var rePassword = document.getElementById("rePassword");
+      var submitButton = document.getElementById("subm");
+
+      login.oninput = function(event) {
+        check()
+      };
+
+      password.oninput = function(event) {
+        check()
+      };
+
+      rePassword.oninput = function(event) {
+        check()
+      };
+
+      function check() {
+        if(
+            login.value != ''      &&
+            password.value != ''   &&
+            rePassword.value != '' &&
+            password.value == rePassword.value
+          )
+        {
+          submitButton.removeAttribute('disabled');
+        } else {
+          submitButton.setAttribute('disabled', 'true');
+        }
+      }
+
+    </script>
+  </body>
+</html>
