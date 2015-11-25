@@ -31,6 +31,7 @@ export default class PopupLayer extends Component {
             payload    = { this.props.payload }
             getExtendedData = { this.props.getExtendedData }
             addDescription  = { this.props.addDescription }
+            saveComment     = { this.props.saveComment }
           />
         </div>
       )

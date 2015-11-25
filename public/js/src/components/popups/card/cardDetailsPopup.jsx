@@ -98,6 +98,15 @@ export default class CardDetailsPopup extends Component {
   }
 
   saveComment(evt) {
-    console.log('saveComment');
+    if(this.state.commentText !== "") {
+      this.props.saveComment({
+          boardId: this.props.payload.boardId,
+          listId:  this.props.payload.listId,
+          taskId:  this.props.payload.cardId,
+          comment: this.state.commentText
+        }
+      );
+      console.log('saveComment');
+    }
   }
 }

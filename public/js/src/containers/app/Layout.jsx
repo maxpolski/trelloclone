@@ -136,7 +136,7 @@ class Layout extends Component {
             getExtendedData = { this.getExtendedData.bind(this) }
             addDescription  = { (data) => dispatch(addDescription(data)) }
             editBoard    = { (id, name) => dispatch(editBoard(id, name)) }
-
+            saveComment  = { (data) => console.log('top level', data) }
             deleteList   = { (boardId, listId) => {
                 dispatch(deleteList(boardId, listId))
               }

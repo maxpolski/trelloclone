@@ -46,6 +46,7 @@ export default class PopupHolder extends Component {
         return <CardDetailsPopup
                  hidePopup = { this.props.hidePopup }
                  addDescription = { this.props.addDescription }
+                 saveComment = { this.props.saveComment }
                  payload   = { payload }
                />
       default:
