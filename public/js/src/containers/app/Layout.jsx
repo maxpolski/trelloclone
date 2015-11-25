@@ -22,12 +22,16 @@ import {
          syncTasks,
          addNewTask,
          deleteTask,
-         editTask
+         editTask,
+         addDescription
        } from '../../actions/tasks/task';
 
 import { searchHandle } from '../../actions/search/quickSearch';
+
 import { initialize } from '../../actions/app/initialization';
+
 import PopupTypes from '../../popupTypes';
+
 import SearchOverlay from '../../components/navigation/SearchOverlay';
 
 class Layout extends Component {
@@ -71,7 +75,7 @@ class Layout extends Component {
             toggleActivity = { this.toggleSearchFieldActivity.bind(this) }
           />
 
-          <div className="col-md-12 workspace" id="workspace">
+          <div onClick = { this.closeOpenedPopups.bind(this) } className="col-md-12 workspace" id="workspace">
             { React.Children.map(this.props.children, (child) => {
                   return React.cloneElement(child, {
 
@@ -129,7 +133,8 @@ class Layout extends Component {
             xPosition    = { this.state.popup.xPosition }
             yPosition    = { this.state.popup.yPosition }
             payload      = { this.state.popup.payload }
-
+            getExtendedData = { this.getExtendedData.bind(this) }
+            addDescription  = { (data) => dispatch(addDescription(data)) }
             editBoard    = { (id, name) => dispatch(editBoard(id, name)) }
 
             deleteList   = { (boardId, listId) => {
@@ -149,6 +154,7 @@ class Layout extends Component {
           />
 
           <SearchOverlay
+            ref = "searchOverlay"
             isOverlay = { this.state.isOverlay }
             queryString   = { this.state.queryString }
             quickSearch   = { this.props.quickSearch }
@@ -209,9 +215,44 @@ class Layout extends Component {
   }
 
   hideSearchOverlay() {
-    console.log('hidden');
     this.setState( { isOverlay: false, queryString: "" } );
 
+  }
+
+  closeOpenedPopups() {
+    this.setState({ isOverlay: false,
+                    queryString: '',
+                    isActiveSearchField: false
+                  });
+  }
+
+  getExtendedData(data) {
+
+    let extendedData = {};
+
+    let board = _.find(this.props.boards, (board) =>
+      {
+        return board._id === data.boardId
+      }
+    );
+
+    let list = _.find(board.lists, (list) => {
+        return list.id === data.listId;
+      }
+    );
+
+    let card = _.find(list.tasks, (task) => {
+        return task.id === data.cardId;
+      }
+    );
+
+    extendedData = Object.assign({}, {
+                                       taskName: card.name,
+                                       listName: list.name
+                                     },
+                                     data
+                                );
+    return extendedData;
   }
 
 }

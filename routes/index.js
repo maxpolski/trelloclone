@@ -67,3 +67,4 @@ exports.deleteTask = require('./tasks/index').deleteTask;
 exports.editTask = require('./tasks/index').editTask;
 exports.syncTasks = require('./tasks/index').syncTasks;
 exports.search = require('./search/index').search;
+exports.addTaskDescription = require('./tasks/index').addTaskDescription;

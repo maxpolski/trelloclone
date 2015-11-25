@@ -119,7 +119,7 @@ export default class List extends Component {
             </div>
 
           )}
-          
+
           <div className="list-cards" type="none">
             { tasks.map( (task, index) => {
                   return (
@@ -129,6 +129,7 @@ export default class List extends Component {
                       index = { index }
                       key = { task.id }
                       name = { task.name }
+                      description = { task.description }
                       isHidden = { task.isHidden }
                       isPlaceholder = { task.isPlaceholder }
                       displayPopup = { this.props.displayPopup }

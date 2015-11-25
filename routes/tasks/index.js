@@ -184,3 +184,48 @@ exports.syncTasks = function(req, res, next) {
   }
 
 }
+
+exports.addTaskDescription = function(req, res, next) {
+  if(req.custom.isLoggedIn) {
+    if(req.body) {
+      var boardId = req.body.boardId;
+      var listId = req.body.listId;
+      var taskId  = req.body.taskId;
+      var text = req.body.text;
+
+      BoardModel.findOne({_id: boardId}, function(err, board) {
+          if(!err) {
+            var lists = board.lists;
+            var list = _.find(lists, function(list) {
+                return list.id === listId;
+              }
+            );
+
+            var task = _.find(list.tasks, function(task) {
+                return task.id === taskId;
+              }
+            );
+
+            task.description = text;
+
+            BoardModel.update({_id: boardId}, {lists: lists}, function(err, num) {
+                if(!err) {
+                  res.set(200).json(board);
+                } else {
+                  next(err);
+                }
+              }
+            );
+
+          } else {
+            next(err);
+          }
+        }
+      );
+
+      console.log('body', req.body);
+    }
+  } else {
+    res.redirect('/login');
+  }
+}

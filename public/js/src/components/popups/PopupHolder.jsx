@@ -4,11 +4,13 @@ import PopupTypes from '../../popupTypes';
 import ListPopup  from './list/listPopup';
 import CardPopup  from './card/cardPopup';
 import BoardPopup from './board/boardPopup';
+import CardDetailsPopup from './card/cardDetailsPopup';
 
 const {
   LIST,
   CARD,
-  BOARD
+  BOARD,
+  CARD_DETAILS
 } = PopupTypes;
 
 export default class PopupHolder extends Component {
@@ -38,6 +40,13 @@ export default class PopupHolder extends Component {
                  payload    = { this.props.payload }
                  editBoard  = { this.props.editBoard }
                  hidePopup  = { this.props.hidePopup }
+               />
+      case CARD_DETAILS:
+        let payload = this.props.getExtendedData(this.props.payload);
+        return <CardDetailsPopup
+                 hidePopup = { this.props.hidePopup }
+                 addDescription = { this.props.addDescription }
+                 payload   = { payload }
                />
       default:
         return <div></div>

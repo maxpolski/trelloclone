@@ -12,7 +12,8 @@ import { ADD_NEW_LIST,
 import { ADD_NEW_TASK,
          DELETE_TASK,
          EDIT_TASK,
-         SYNC_TASKS_ORDER
+         SYNC_TASKS_ORDER,
+         ADD_TASK_DESCRIPTION
        }     from '../../actions/tasks/task';
 import { APP_INITIALIZED } from '../../actions/app/initialization';
 import * as _ from 'lodash';
@@ -120,6 +121,17 @@ export default function boards(state = [], action) {
         ...state.slice(index + 1)
       ];
     case SYNC_TASKS_ORDER:
+      _id = action.payload._id;
+      item = _.find(state, function(board) {
+        return board._id == _id;
+      });
+      index = state.indexOf(item);
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, state[index], action.payload),
+        ...state.slice(index + 1)
+      ];
+    case ADD_TASK_DESCRIPTION:
       _id = action.payload._id;
       item = _.find(state, function(board) {
         return board._id == _id;

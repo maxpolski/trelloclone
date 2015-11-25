@@ -29,6 +29,8 @@ export default class PopupLayer extends Component {
             deleteTask = { this.props.deleteTask }
             hidePopup  = { this.props.hidePopup.bind(this) }
             payload    = { this.props.payload }
+            getExtendedData = { this.props.getExtendedData }
+            addDescription  = { this.props.addDescription }
           />
         </div>
       )

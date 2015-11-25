@@ -102,6 +102,7 @@ export default class Task extends Component {
         className="list-card"
         style = { { backgroundColor: background, display: display }}
         ref = { (ref) => this.cardItem = ref }
+        onClick = { this.cardDetailsPopupShow.bind(this) }
       >
         <div className="list-card-details" style = { { opacity: opacity } } >
           <div className="list-card-labels">
@@ -175,6 +176,21 @@ export default class Task extends Component {
                                  cardId:  this.props.id,
                                  title:   this.props.name,
                                  elementWidth: width
+                               }
+                             }
+                           );
+  }
+
+  cardDetailsPopupShow(evt) {
+    evt.persist();
+    this.props.displayPopup(
+                             {
+                               type: PopupTypes.CARD_DETAILS,
+                               payload: {
+                                 boardId: this.props.boardId,
+                                 listId:  this.props.listId,
+                                 cardId:  this.props.id,
+                                 description: this.props.description
                                }
                              }
                            );
