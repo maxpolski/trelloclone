@@ -23,7 +23,9 @@ import {
          addNewTask,
          deleteTask,
          editTask,
-         addDescription
+         addDescription,
+         saveTaskComment,
+         addChecklist
        } from '../../actions/tasks/task';
 
 import { searchHandle } from '../../actions/search/quickSearch';
@@ -134,9 +136,12 @@ class Layout extends Component {
             yPosition    = { this.state.popup.yPosition }
             payload      = { this.state.popup.payload }
             getExtendedData = { this.getExtendedData.bind(this) }
+            boards = { boards }
             addDescription  = { (data) => dispatch(addDescription(data)) }
             editBoard    = { (id, name) => dispatch(editBoard(id, name)) }
-            saveComment  = { (data) => console.log('top level', data) }
+            saveComment  = { (data) => dispatch(saveTaskComment(data)) }
+            addChecklist = { (data) => dispatch(addChecklist(data)) }
+
             deleteList   = { (boardId, listId) => {
                 dispatch(deleteList(boardId, listId))
               }

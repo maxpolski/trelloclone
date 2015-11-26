@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import CardComment from './cardComment';
+
 export default class CardComments extends Component {
   render() {
     let commentText = this.props.commentText;
@@ -34,6 +36,34 @@ export default class CardComments extends Component {
             onClick = { this.props.saveComment }
           />
         </div>
+
+        <div
+          className = "card-details-window-comments-section"
+          style = { this.props.comments.length > 0 ? {display: 'block'} : {display: 'none'} }
+        >
+          <div className = "card-details-window-comments-section-header">
+            <span></span>
+            <h3
+              className = "card-details-window-comments-section-header-title"
+            >
+              Comments
+            </h3>
+          </div>
+          <div className = "card-details-window-comments-section-body">
+            { this.props.comments.map((comment, index) => {
+                  return (
+                    <CardComment
+                      text = { comment.text }
+                      key  = { comment.id }
+                    />
+                  )
+                }
+              )
+            }
+          </div>
+
+        </div>
+
       </div>
     )
   }

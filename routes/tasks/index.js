@@ -18,7 +18,9 @@ exports.addTask = function(req, res, next) {
                                    {
                                      id: getHash(),
                                      name: req.body.name,
-                                     order: lists[index].maxTaskOrder + 1
+                                     order: lists[index].maxTaskOrder + 1,
+                                     comments: [],
+                                     checklists: []
                                    }
                                  );
 
@@ -222,8 +224,107 @@ exports.addTaskDescription = function(req, res, next) {
           }
         }
       );
+    }
+  } else {
+    res.redirect('/login');
+  }
+}
 
-      console.log('body', req.body);
+exports.addTaskComment = function(req, res, next) {
+  if(req.custom.isLoggedIn) {
+    if(req.body) {
+
+      var boardId = req.body.boardId;
+      var listId  = req.body.listId;
+      var taskId  = req.body.taskId;
+      var commentText = req.body.comment;
+      var userId  = req.custom.user_id;
+
+      BoardModel.findOne({_id: boardId}, function(err, board) {
+          if(!err) {
+
+            var lists = board.lists;
+
+            var list = _.find(lists, function(list) {
+                return list.id === listId;
+              }
+            );
+
+            var task = _.find(list.tasks, function(task) {
+                return task.id === taskId;
+              }
+            );
+
+            var commentId = getHash();
+            var comment = {id: commentId, userId: userId, text: commentText};
+
+            task.comments.push(comment);
+
+            BoardModel.update({_id: boardId}, {lists: lists}, function(err, num) {
+                if(!err) {
+                  res.set(200).json(board);
+                } else {
+                  next(err);
+                }
+              }
+            );
+
+          } else {
+            next(err);
+          }
+        }
+      )
+    }
+  } else {
+    res.redirect('/login');
+  }
+}
+
+exports.addChecklist = function(req, res, next) {
+  if(req.custom.isLoggedIn) {
+    if(req.body) {
+      var boardId = req.body.boardId;
+      var listId  = req.body.listId;
+      var taskId  = req.body.cardId;
+      var checklistName = req.body.checklistName;
+
+      BoardModel.findOne({_id: boardId}, function(err, board) {
+          if(!err) {
+
+            var lists = board.lists;
+
+            var list  = _.find(lists, function(list) {
+                return list.id === listId;
+              }
+            );
+
+            var task = _.find(list.tasks, function(task) {
+                return task.id === taskId;
+              }
+            );
+
+            var checklist = {
+              id: getHash(),
+              name: checklistName,
+              tasks: []
+            }
+
+            task.checklists.push(checklist);
+
+            BoardModel.update({_id: boardId}, {lists: lists}, function(err, num) {
+                if(!err) {
+                  res.set(200).json(board);
+                } else {
+                  next(err);
+                }
+              }
+            );
+
+          } else {
+            next(err);
+          }
+        }
+      );
     }
   } else {
     res.redirect('/login');

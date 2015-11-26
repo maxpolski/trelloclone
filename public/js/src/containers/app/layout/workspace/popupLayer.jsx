@@ -13,6 +13,12 @@ export default class PopupLayer extends Component {
       top:  this.props.yPosition + 30
     }
 
+    console.log('props', this.props);
+    if(this.props.payload) {
+      let board = _.find(this.props.boards, (board) => { board.id === this.props.payload.boardId})
+      console.log('board', board);
+    }
+
     if(this.props.isDisplaying) {
       return (
         <div
@@ -32,6 +38,7 @@ export default class PopupLayer extends Component {
             getExtendedData = { this.props.getExtendedData }
             addDescription  = { this.props.addDescription }
             saveComment     = { this.props.saveComment }
+            addChecklist    = { this.props.addChecklist }
           />
         </div>
       )

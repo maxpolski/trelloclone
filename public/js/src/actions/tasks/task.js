@@ -7,6 +7,8 @@ export const DELETE_TASK      = 'DELETE_TASK';
 export const EDIT_TASK        = 'EDIT_TASK';
 export const SYNC_TASKS_ORDER = 'SYNC_TASK_ORDER';
 export const ADD_TASK_DESCRIPTION  = 'ADD_TASK_DESCRIPTION';
+export const SAVE_TASK_COMMENT     = 'SAVE_TASK_COMMENT';
+export const ADD_CHECKLIST         = 'ADD_CHECKLIST';
 
 export function addNewTask(boardId, listId, name) {
   return {[CALL_API]: {
@@ -96,6 +98,44 @@ export function addDescription(data) {
       types: [
         REQUEST_STARTED,
         ADD_TASK_DESCRIPTION,
+        REQUEST_FAILED
+      ]
+    }
+  }
+}
+
+export function saveTaskComment(data) {
+  data = JSON.stringify(data);
+  return {[CALL_API]: {
+      endpoint: '/addtaskcomment',
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: data,
+      types: [
+        REQUEST_STARTED,
+        SAVE_TASK_COMMENT,
+        REQUEST_FAILED
+      ]
+    }
+  }
+}
+
+export function addChecklist(data) {
+  data = JSON.stringify(data);
+  return {[CALL_API]: {
+      endpoint: '/addchecklist',
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: data,
+      types: [
+        REQUEST_STARTED,
+        ADD_CHECKLIST,
         REQUEST_FAILED
       ]
     }

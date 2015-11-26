@@ -13,7 +13,9 @@ import { ADD_NEW_TASK,
          DELETE_TASK,
          EDIT_TASK,
          SYNC_TASKS_ORDER,
-         ADD_TASK_DESCRIPTION
+         ADD_TASK_DESCRIPTION,
+         SAVE_TASK_COMMENT,
+         ADD_CHECKLIST
        }     from '../../actions/tasks/task';
 import { APP_INITIALIZED } from '../../actions/app/initialization';
 import * as _ from 'lodash';
@@ -142,6 +144,20 @@ export default function boards(state = [], action) {
         Object.assign({}, state[index], action.payload),
         ...state.slice(index + 1)
       ];
+    case ADD_CHECKLIST:
+      _id = action.payload._id;
+      item = _.find(state, function(board) {
+        return board._id == _id;
+      });
+      index = state.indexOf(item);
+      console.log('added checklist', action.payload);
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, state[index], action.payload),
+        ...state.slice(index + 1)
+      ];
+    case SAVE_TASK_COMMENT:
+      return state;
     case APP_INITIALIZED:
       let data = action.payload.data;
       let boards = [];

@@ -59,7 +59,6 @@ export default class CPopup extends Component {
   }
 
   changeValue(event) {
-    console.log('changing');
     event.persist();
     this.setState({editValue: event.target.value});
   }
@@ -83,11 +82,9 @@ export default class CPopup extends Component {
     evt.persist();
     let value = this.refs.newCardText.value;
     if(value.length != '') {
-      console.log('pr', this.props);
       this.props.editTask(this.props.payload.boardId, this.props.payload.listId, this.props.payload.cardId, value);
       this.props.hidePopup();
     }
-    console.log(newText.value);
 
   }
 }

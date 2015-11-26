@@ -70,6 +70,8 @@ app.post('/login', routes.login);
 app.get('/logout', routes.logOut);
 app.post('/search', routes.search);
 app.post('/adddescription', routes.addTaskDescription);
+app.post('/addtaskcomment', routes.addTaskComment);
+app.post('/addchecklist', routes.addChecklist);
 
 app.listen(8082, function() {
   console.log('listening on port 8082');

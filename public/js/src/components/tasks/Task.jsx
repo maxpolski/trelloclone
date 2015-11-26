@@ -160,6 +160,7 @@ export default class Task extends Component {
 
   cardPopupShow(evt) {
     evt.persist();
+    evt.stopPropagation();
     let cardItem = this.cardItem;
     let xPosition = cardItem.getBoundingClientRect().left;
     let yPosition = cardItem.getBoundingClientRect().top;
@@ -190,7 +191,8 @@ export default class Task extends Component {
                                  boardId: this.props.boardId,
                                  listId:  this.props.listId,
                                  cardId:  this.props.id,
-                                 description: this.props.description
+                                 description: this.props.description,
+                                 comments: this.props.comments
                                }
                              }
                            );
