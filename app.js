@@ -72,6 +72,9 @@ app.post('/search', routes.search);
 app.post('/adddescription', routes.addTaskDescription);
 app.post('/addtaskcomment', routes.addTaskComment);
 app.post('/addchecklist', routes.addChecklist);
+app.post('/deletechecklist', routes.deleteChecklist);
+app.post('/addchecklistitem', routes.addChecklistItem);
+app.post('/toggletaskstatus', routes.toggleTaskStatus);
 
 app.listen(8082, function() {
   console.log('listening on port 8082');

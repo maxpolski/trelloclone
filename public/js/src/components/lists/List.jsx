@@ -131,6 +131,7 @@ export default class List extends Component {
                       name = { task.name }
                       description = { task.description }
                       comments = { task.comments }
+                      checklists = { task.checklists }
                       isHidden = { task.isHidden }
                       isPlaceholder = { task.isPlaceholder }
                       displayPopup = { this.props.displayPopup }

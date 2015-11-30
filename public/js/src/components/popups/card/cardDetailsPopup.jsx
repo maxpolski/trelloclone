@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import CardDescription from './cardDetails/cardDescription';
 import CardComments from './cardDetails/cardComments';
 import ChecklistCreatePopup from './childPopups/ChecklistCreatePopup';
+import CardChecklists from './cardDetails/cardChecklists';
 
 export default class CardDetailsPopup extends Component {
 
@@ -20,11 +21,15 @@ export default class CardDetailsPopup extends Component {
 
   render() {
     let isEditingDescription = this.state.isEditingDescription;
+    let task = this.props.task;
+    let checklists = task.checklists;
+    let comments = task.comments;
 
     return (
             <div
               className="card-details-window"
             >
+              <div>
               <div className = "card-details-window-wrapper">
                 <div className = "card-details-window-content">
                   <div className = "card-details-window-content-header">
@@ -62,11 +67,19 @@ export default class CardDetailsPopup extends Component {
                       cardDescription = { this.state.cardDescription }
                     />
 
+                    <CardChecklists
+                      checklists = { checklists }
+                      payload = { this.props.payload }
+                      deleteChecklist = { this.props.deleteChecklist }
+                      addChecklistItem = { this.props.addChecklistItem }
+                      toggleTaskStatus = { this.props.toggleTaskStatus }
+                    />
+
                     <CardComments
                       commentText = { this.state.commentText }
                       handleCommentInput = { this.handleCommentInput.bind(this) }
                       saveComment = { this.saveComment.bind(this) }
-                      comments = { this.props.payload.comments }
+                      comments = { comments }
                     />
 
                   </div>
@@ -87,6 +100,7 @@ export default class CardDetailsPopup extends Component {
                     </div>
                   </div>
                 </div>
+              </div>
               </div>
               <ChecklistCreatePopup
                 data = { this.state.checklistPopup }
@@ -178,7 +192,7 @@ export default class CardDetailsPopup extends Component {
         cardId: this.props.payload.cardId,
         checklistName: checklistName
       }
-      
+      this.hideAddChecklistPopup();
       this.props.addChecklist(data);
     }
   }

@@ -48,7 +48,11 @@ export default class PopupHolder extends Component {
                  addDescription = { this.props.addDescription }
                  saveComment = { this.props.saveComment }
                  addChecklist = { this.props.addChecklist }
+                 deleteChecklist = { this.props.deleteChecklist }
+                 addChecklistItem = { this.props.addChecklistItem }
+                 toggleTaskStatus = { this.props.toggleTaskStatus }
                  payload   = { payload }
+                 task = { this.props.task }
                />
       default:
         return <div></div>

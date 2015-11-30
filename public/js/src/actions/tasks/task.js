@@ -9,6 +9,9 @@ export const SYNC_TASKS_ORDER = 'SYNC_TASK_ORDER';
 export const ADD_TASK_DESCRIPTION  = 'ADD_TASK_DESCRIPTION';
 export const SAVE_TASK_COMMENT     = 'SAVE_TASK_COMMENT';
 export const ADD_CHECKLIST         = 'ADD_CHECKLIST';
+export const DELETE_CHECKLIST      = 'DELETE_CHECKLIST';
+export const ADD_CHECKLIST_ITEM    = 'ADD_CHECKLIST_ITEM';
+export const TOGGLE_TASK_STATUS    = 'TOGGLE_TASK_STATUS';
 
 export function addNewTask(boardId, listId, name) {
   return {[CALL_API]: {
@@ -136,6 +139,63 @@ export function addChecklist(data) {
       types: [
         REQUEST_STARTED,
         ADD_CHECKLIST,
+        REQUEST_FAILED
+      ]
+    }
+  }
+}
+
+export function deleteChecklist(data) {
+  data = JSON.stringify(data);
+  return {[CALL_API]: {
+      endpoint: '/deletechecklist',
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: data,
+      types: [
+        REQUEST_STARTED,
+        DELETE_CHECKLIST,
+        REQUEST_FAILED
+      ]
+    }
+  }
+}
+
+export function addChecklistItem(data) {
+  data = JSON.stringify(data);
+  return {[CALL_API]: {
+      endpoint: '/addchecklistitem',
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: data,
+      types: [
+        REQUEST_STARTED,
+        ADD_CHECKLIST_ITEM,
+        REQUEST_FAILED
+      ]
+    }
+  }
+}
+
+export function toggleTaskStatus(data) {
+  data = JSON.stringify(data);
+  return {[CALL_API]: {
+      endpoint: '/toggletaskstatus',
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: data,
+      types: [
+        REQUEST_STARTED,
+        TOGGLE_TASK_STATUS,
         REQUEST_FAILED
       ]
     }

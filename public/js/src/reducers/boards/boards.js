@@ -15,7 +15,10 @@ import { ADD_NEW_TASK,
          SYNC_TASKS_ORDER,
          ADD_TASK_DESCRIPTION,
          SAVE_TASK_COMMENT,
-         ADD_CHECKLIST
+         ADD_CHECKLIST,
+         DELETE_CHECKLIST,
+         ADD_CHECKLIST_ITEM,
+         TOGGLE_TASK_STATUS
        }     from '../../actions/tasks/task';
 import { APP_INITIALIZED } from '../../actions/app/initialization';
 import * as _ from 'lodash';
@@ -150,14 +153,55 @@ export default function boards(state = [], action) {
         return board._id == _id;
       });
       index = state.indexOf(item);
-      console.log('added checklist', action.payload);
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, state[index], action.payload),
+        ...state.slice(index + 1)
+      ];
+    case DELETE_CHECKLIST:
+      _id = action.payload._id;
+      item = _.find(state, function(board) {
+        return board._id == _id;
+      });
+      index = state.indexOf(item);
       return [
         ...state.slice(0, index),
         Object.assign({}, state[index], action.payload),
         ...state.slice(index + 1)
       ];
     case SAVE_TASK_COMMENT:
-      return state;
+      _id = action.payload._id;
+      item = _.find(state, function(board) {
+        return board._id == _id;
+      });
+      index = state.indexOf(item);
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, state[index], action.payload),
+        ...state.slice(index + 1)
+      ];
+    case ADD_CHECKLIST_ITEM:
+      _id = action.payload._id;
+      item = _.find(state, function(board) {
+        return board._id == _id;
+      });
+      index = state.indexOf(item);
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, state[index], action.payload),
+        ...state.slice(index + 1)
+      ];
+    case TOGGLE_TASK_STATUS:
+      _id = action.payload._id;
+      item = _.find(state, function(board) {
+        return board._id == _id;
+      });
+      index = state.indexOf(item);
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, state[index], action.payload),
+        ...state.slice(index + 1)
+      ];
     case APP_INITIALIZED:
       let data = action.payload.data;
       let boards = [];

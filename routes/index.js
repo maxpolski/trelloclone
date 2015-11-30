@@ -70,3 +70,6 @@ exports.search = require('./search/index').search;
 exports.addTaskDescription = require('./tasks/index').addTaskDescription;
 exports.addTaskComment = require('./tasks/index').addTaskComment;
 exports.addChecklist = require('./tasks/index').addChecklist;
+exports.deleteChecklist = require('./tasks/index').deleteChecklist;
+exports.addChecklistItem = require('./tasks/index').addChecklistItem;
+exports.toggleTaskStatus = require('./tasks/index').toggleTaskStatus;

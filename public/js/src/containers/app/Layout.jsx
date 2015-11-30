@@ -25,15 +25,15 @@ import {
          editTask,
          addDescription,
          saveTaskComment,
-         addChecklist
+         addChecklist,
+         deleteChecklist,
+         addChecklistItem,
+         toggleTaskStatus
        } from '../../actions/tasks/task';
 
 import { searchHandle } from '../../actions/search/quickSearch';
-
 import { initialize } from '../../actions/app/initialization';
-
 import PopupTypes from '../../popupTypes';
-
 import SearchOverlay from '../../components/navigation/SearchOverlay';
 
 class Layout extends Component {
@@ -136,11 +136,14 @@ class Layout extends Component {
             yPosition    = { this.state.popup.yPosition }
             payload      = { this.state.popup.payload }
             getExtendedData = { this.getExtendedData.bind(this) }
-            boards = { boards }
+            boards = { this.props.boards }
             addDescription  = { (data) => dispatch(addDescription(data)) }
             editBoard    = { (id, name) => dispatch(editBoard(id, name)) }
             saveComment  = { (data) => dispatch(saveTaskComment(data)) }
             addChecklist = { (data) => dispatch(addChecklist(data)) }
+            deleteChecklist = { (data) => dispatch(deleteChecklist(data)) }
+            addChecklistItem = { (data) => dispatch(addChecklistItem(data)) }
+            toggleTaskStatus = { (data) => dispatch(toggleTaskStatus(data)) }
 
             deleteList   = { (boardId, listId) => {
                 dispatch(deleteList(boardId, listId))

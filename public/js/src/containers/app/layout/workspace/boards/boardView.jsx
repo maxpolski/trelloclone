@@ -217,7 +217,17 @@ class BoardView extends Component {
     let hoverListIndex = _.findIndex(board.lists, (list) => list.id === targetListId);
     let list = board.lists[hoverListIndex];
     const { tasks } = list;
-    let dragItem = {id: sourceItem.id, name: sourceItem.name, order: 0}
+
+    console.log('sourceItem', sourceItem);
+
+    let dragItem = {
+                     id: sourceItem.id,
+                     name: sourceItem.name,
+                     order: 0,
+                     comments: sourceItem.comments,
+                     checklists: sourceItem.checklists,
+                     description: sourceItem.description
+                   }
 
   }
 
@@ -271,11 +281,18 @@ class BoardView extends Component {
     let shouldBeDeleted;
     let numOfUntList;
 
-    for(let i = 0; i < board.lists.length; i++) {
+    for( let i = 0; i < board.lists.length; i++ ) {
       let tmpItemIndex = _.findIndex(board.lists[i].tasks, (task) => task.isPlaceholder );
       if(tmpItemIndex !== -1) {
         shouldBeDeleted = true;
-        board.lists[i].tasks[tmpItemIndex] = {id: dragItem.id, name: dragItem.name, order: 0 };
+        board.lists[i].tasks[tmpItemIndex] = {
+                                               id: dragItem.id,
+                                               name: dragItem.name,
+                                               order: 0,
+                                               checklists: dragItem.checklists,
+                                               comments: dragItem.comments,
+                                               description: dragItem.description
+                                             };
         numOfUntList = i;
       }
     }
